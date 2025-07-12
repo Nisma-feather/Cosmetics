@@ -1,21 +1,54 @@
 import { useState } from "react";
 import { RiUploadCloud2Line } from "react-icons/ri";
 import api from "../../customApi";
+import { useNavigate} from "react-router-dom";
 export const AddBanner = () => {
   const [newBanner,setNewBanner]=useState({
     title:"",
     description:"",
     imageUrl:"",
   });
+  const navigate=useNavigate()
+  const [bannerError,setBannerError]=useState({});
+
+  const validate=()=>{
+    let valid=true;
+    let error={};
+    if(!newBanner.title.trim()){
+      error.title="Title is Required"
+      valid=false
+    }
+    if(!newBanner.description.trim()){
+      error.description="Slug is Required"
+      valid = false;
+    }
+    if(!newBanner.imageUrl){
+      error.image="Please Choose an image"
+      valid = false;
+    }
+    setBannerError(error);
+    return valid
+    
+
+  }
 console.log(newBanner);
 const postBanner=async(e)=>{
     e.preventDefault();
     try{
-        const res=await api.post()
+      if(!validate()){
+        return ;
+      }
+      const formData=new FormData();
+      formData.append("title",newBanner.title);
+      formData.append("description",newBanner.description);
+      formData.append("image",newBanner.imageUrl);
 
+        const res=await api.post("/banner",formData)
+        alert("Banner Added successfully");
+        navigate("/banner")
     }
     catch(e){
-
+      console.log(e)
     }
 
 }
@@ -23,16 +56,14 @@ const postBanner=async(e)=>{
     <div>
       <h2 className='text-2xl font-bold mb-5 ml-5'>Add new Banner</h2>
     <div className='flex flex-col bg-white shadow-md rounded-lg p-6 h-full'>
-      
-        
-      
-      <form className='flex flex-col'>
+  
+      <form className='flex flex-col' onSubmit={postBanner}>
         <div className='flex  flex-row gap-10'>
           <div className='flex flex-col  flex-1/2 gap-3'>
             <h3 className='text-xl font-bold mb-[20px]'>Basic Information</h3>
             <label htmlFor='title' className='font-bold'>Title</label>
             <input type='text' id="title" className='border p-[3px] border-[#999] rounded-[4px]' value={newBanner.title} onChange={(e)=>setNewBanner({...newBanner,title:e.target.value})}/>
-            <label htmlFor='description' className='font-bold'>Description</label>
+            <label htmlFor='description' className='font-bold'>Slug</label>
             <input type='text' id="description" className='border p-[3px] border-[#999] rounded-[4px]' value={newBanner.description} onChange={(e)=>setNewBanner({...newBanner,description:e.target.value})}/>
           </div>
           <div className='flex flex-col flex-1/2'>

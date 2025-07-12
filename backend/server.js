@@ -3,7 +3,10 @@ const cors=require("cors");
 const mongoose=require("mongoose");
 const path=require("path")
 require("dotenv").config();
-const adminRoutes=require("./routes/adminRoutes")
+
+//Routes Import
+const bannerRoutes=require("./routes/bannerRoutes")
+const categoryRoutes=require("./routes/categoryRoutes")
 
 const app=express();
 app.use(cors());
@@ -14,7 +17,8 @@ const UploadDir=path.join(__dirname,"uploads")
 app.use("/uploads",express.static(UploadDir))
 
 //
-app.use("/api",adminRoutes)
+app.use("/api/banner", bannerRoutes);
+app.use("/api/category",categoryRoutes);
 
 //database connection
 mongoose.connect(process.env.MONGODB_URI).then(()=>{
