@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+/* BannerSlider.css */
+.banner-swiper {
+  width: 100%;
+  height: 400px;
+}
+
+.banner-swiper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: white; /* Change to your desired color */
+  font-size: 24px; /* Optional: change size */
+}
+
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
