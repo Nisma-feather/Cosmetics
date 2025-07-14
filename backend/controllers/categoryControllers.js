@@ -89,7 +89,8 @@ const deleteCategory = async (req, res) => {
 };
 const updateCategory = async (req, res) => {
   try {
-    const rawName = req.params.name;
+    console.log(req.params.updateId)
+    const rawName = req.body.name;
     const name = rawName.trim().toLowerCase();
     const existing = await Category.findById(req.params.updateId);
     
@@ -132,7 +133,8 @@ const updateCategory = async (req, res) => {
         category: updatedCategory,
       });
   } catch (e) {
-
+    console.log(e)
+     return res.status(500).json({message:"can't able to update the category"})
   }
 };
-module.exports = { addCategory, getCategory, deleteCategory };
+module.exports = { addCategory, getCategory, deleteCategory,updateCategory };

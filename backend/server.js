@@ -5,8 +5,9 @@ const path=require("path")
 require("dotenv").config();
 
 //Routes Import
-const bannerRoutes=require("./routes/bannerRoutes")
-const categoryRoutes=require("./routes/categoryRoutes")
+const bannerRoutes=require("./routes/bannerRoutes");
+const categoryRoutes=require("./routes/categoryRoutes");
+const productRoutes=require("./routes/productRoutes");
 
 const app=express();
 app.use(cors());
@@ -16,9 +17,10 @@ app.use(express.json());
 const UploadDir=path.join(__dirname,"uploads")
 app.use("/uploads",express.static(UploadDir))
 
-//
+//Routing
 app.use("/api/banner", bannerRoutes);
 app.use("/api/category",categoryRoutes);
+app.use("/api/product",productRoutes)
 
 //database connection
 mongoose.connect(process.env.MONGODB_URI).then(()=>{
