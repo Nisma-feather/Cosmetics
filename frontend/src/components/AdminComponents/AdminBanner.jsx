@@ -122,7 +122,7 @@ const handleDelete=async(e)=>{
 
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm text-left text-gray-700">
-          <thead className="text- bg-gray-100">
+          <thead className="bg-gray-100">
             <tr>
               <th className="px-6 py-3">Slider</th>
               <th className="px-6 py-3">Actions</th>
@@ -134,8 +134,8 @@ const handleDelete=async(e)=>{
                 <td className="px-6 py-4">
                   <div className="flex items-center  gap-4">
                     <img
-                      src={slider.imageUrl}
-                      alt={slider.title}
+                      src={item.imageUrl}
+                      alt={item.name}
                       className="w-12 h-12 object-cover object-center rounded-full shadow"
                     />
                     <span className="font-semibold">{slider.title}</span>

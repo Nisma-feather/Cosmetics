@@ -24,50 +24,32 @@ const addProduct=async(req,res)=>{
 
 const getProduct=async(req,res)=>{
     try{
-        // const {category,sort,search}=req.query;
+          const {category,search,sort}=req.query;
+          const limit=parseInt(req.query.limit) || 5;
+          const page=parseInt(req.query.page) || 1;
+          const skip=(page-1)*limit;
+        const query={};
+        const sortOption={};
 
-        // const page= parseInt(req.query.page) || 1
-        
-        // const limit =parseInt(req.query.limit) || 2;
 
-        // const skip=(page-1)*limit;
-     
+        if(category){
+            query.category=category
+        }
+        if(search){
+            query.name={$regex:search,options:"i"}
+        }
+        if(sort==="highToLow"){
+            sortOption.price=-1
 
-       
-        // const query={}
-        // const sortOption={};
+        }
+        if(sort==='lowToHigh'){
+            sortOption.price=1
+        }
+        const productsFound=await Product.countDocuments(query);
+        const totalPages=Math.ceil(productsFound/limit)
 
-        // if(category){
-        //     query.category=category;
-        // }
-        // if(search){
-        //     query.name={$regex:search, $options:"i"}
-        // }
-        //  console.log(category);
-        //  if (sort === "highToLow") {
-        //     sortOption.price=-1
-        //  }
-        //  if(sort=== "lowToHigh"){
-        //     sortOption.price=1
-        //  }
-        //  if(sort==='AZ'){
-        //     sortOption.name=1
-        //  }
-        //  if(sort==='ZA'){
-        //     sortOption.name=-1
-        //  }
-        //     const totalDocs = await Product.countDocuments(query);
-        //     const totalPages = Math.ceil(totalDocs / limit);
-        // const products=await Product.find(query).populate('category','name').sort(sortOption).skip(skip).limit(limit);
-        // return res.status(200).json({
-        //   products,
-        //   pagination: {
-        //     totalDocs,
-        //     totalPages,
-        //     currentPage: page,
-        //     pageSize: limit,
-        //   },
-        // });
+        const products=await Product.find(query).populate('category','name').sort(sortOption).skip(skip).limit(limit);
+        return res.status(200).json({products,pagination:{productsFound,totalPages,currentPage:page,pageSize:limit}})
 
 
     }
@@ -78,6 +60,7 @@ const getProduct=async(req,res)=>{
     }
 
 }
+
 
 
 module.exports={addProduct,getProduct};
