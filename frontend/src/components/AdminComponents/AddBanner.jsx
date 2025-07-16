@@ -27,7 +27,7 @@ export const AddBanner = () => {
       valid = false;
     }
     setBannerError(error);
-    return valid
+    return valid;
     
 
   }

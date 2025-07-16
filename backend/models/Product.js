@@ -21,7 +21,7 @@ const productSchema=new mongoose.Schema({
     category:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Category",
-        requires:true
+        required:true
     },
     images:[
         {
@@ -36,7 +36,7 @@ const productSchema=new mongoose.Schema({
     inStock:{
         type:Boolean,
         default:true
-
+        
     },
     createdAt:{
         type:Date,

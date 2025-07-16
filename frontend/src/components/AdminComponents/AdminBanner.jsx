@@ -132,10 +132,10 @@ const handleDelete=async(e)=>{
             {banner.map((slider, index) => (
               <tr key={index} className="hover:bg-gray-50 transition">
                 <td className="px-6 py-4">
-                  <div className="flex items-center  gap-4">
+                  <div className="flex items-center gap-4">
                     <img
-                      src={item.imageUrl}
-                      alt={item.name}
+                      src={slider.imageUrl}
+                      alt={slider.name}
                       className="w-12 h-12 object-cover object-center rounded-full shadow"
                     />
                     <span className="font-semibold">{slider.title}</span>
