@@ -24,6 +24,7 @@ const addProduct=async(req,res)=>{
 
 const getProduct=async(req,res)=>{
     try{
+         console.log(req.query)
           const {category,search,sort}=req.query;
           const limit=parseInt(req.query.limit) || 5;
           const page=parseInt(req.query.page) || 1;
@@ -32,11 +33,11 @@ const getProduct=async(req,res)=>{
         const sortOption={};
 
 
-        if(category){
-            query.category=category
+        if (category && category !== "") {
+          query.category = category;
         }
         if(search){
-            query.name={$regex:search,options:"i"}
+            query.name = { $regex: search, $options: "i" }
         }
         if(sort==="highToLow"){
             sortOption.price=-1
@@ -45,6 +46,12 @@ const getProduct=async(req,res)=>{
         if(sort==='lowToHigh'){
             sortOption.price=1
         }
+        if(sort=='az'){
+            sortOption.name=1
+        }
+         if (sort == "za") {
+           sortOption.name = -1;
+         }
         const productsFound=await Product.countDocuments(query);
         const totalPages=Math.ceil(productsFound/limit)
 

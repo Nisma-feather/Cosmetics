@@ -9,6 +9,7 @@ import AdminBanner from './components/AdminComponents/AdminBanner'
 import AdminProducts from './components/AdminComponents/AdminProducts'
 import { AddBanner } from './components/AdminComponents/AddBanner'
 import AdminAddProduct from './components/AdminComponents/AdminAddProduct'
+import Categories from './components/AdminComponents/Categories'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="add_banner" element={<AddBanner/>}/>
         <Route path="product-List" element={<AdminProducts/>}/>
         <Route path='/addProduct' element={<AdminAddProduct/>}/>
+        <Route path="/categories" element={<Categories/>}/>
       </Route>
      </Routes>
      </BrowserRouter>

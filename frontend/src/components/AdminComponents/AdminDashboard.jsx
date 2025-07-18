@@ -34,6 +34,17 @@ const AdminDashboard = () => {
               <FiShoppingBag size={22} />
               <span>Products</span>
             </NavLink>
+            <NavLink
+              to="categories"
+              className={({ isActive }) =>
+                `flex items-center gap-2   px-4 py-2 font-bold transition-all duration-200 rounded hover:text-[#7da827] ${
+                  isActive ? "bg-[#ECFAE5] text-[#7da827]" : "text-[#333]"
+                } rounded-xl`
+              }
+            >
+              <FiShoppingBag size={22} />
+              <span>Products</span>
+            </NavLink>
           </nav>
         </aside>
         <main className="flex-1 p-6 bg-gray-100">

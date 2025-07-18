@@ -66,7 +66,7 @@ const AdminAddProduct = () => {
     return valid;
   };
 
-  // ✅ Handle form input changes
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewProduct((prev) => ({ ...prev, [name]: value }));
@@ -95,18 +95,18 @@ const AdminAddProduct = () => {
     try {
       const formData = new FormData();
 
-      // ✅ Add product fields
+      // Add product fields
       Object.entries(newproduct).forEach(([key, value]) => {
         formData.append(key, value);
       });
 
-      // ✅ Add images
+      // Add images
       images.forEach((image) => formData.append("images", image));
 
       const res = await api.post("/product", formData); // Axios auto sets headers
       alert(res.data.messages || "Product created!");
 
-      // ✅ Reset form after success
+      // Reset form after success
       setNewProduct({
         name: "",
         shortDescription: "",

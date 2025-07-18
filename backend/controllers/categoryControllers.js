@@ -5,6 +5,7 @@ const Category = require("../models/Category");
 
 const addCategory = async (req, res) => {
   try {
+   
     const rawName = req.body.name;
     const name = rawName.trim().toLowerCase();
 
@@ -49,7 +50,13 @@ const addCategory = async (req, res) => {
 };
 const getCategory = async (req, res) => {
   try {
-    const categories = await Category.find();
+    const {search} = req.query;
+    const query={}
+    if(search){
+      query.name={$regex:search,$options:"i"}
+    }
+    
+    const categories = await Category.find(query);
     return res.status(200).json({ categories });
   } catch (e) {
     console.log(e);
